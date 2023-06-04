@@ -19,6 +19,10 @@ root.pack(expand=TRUE, fill="both")
 
 def show():
     label.config(text=clicked.get(),)
+def playA():
+    print("gram A")
+label = Label(tab1, text=" ")
+label.pack()
 
 
 # Dropdown menu options
@@ -41,10 +45,23 @@ clicked.set("Wybierz standard")
 drop = OptionMenu(tab1, clicked, *options)
 drop.pack()
 
+
 # Create button, it will change label text, we should add a way it impacts play sound function
 button = Button(tab1, text="Zarwierdz standard", command=show).pack()
 
 # Create Label
-label = Label(tab1, text=" ")
-label.pack()
+
+
+# okienka do zaznaczania z przypisanymi im zmiennymi
+varA = IntVar()
+varB = IntVar()
+varC = IntVar()
+varD = IntVar()
+varE = IntVar()
+A=Checkbutton(tab1, text="A", font=("Consolas", 10), width =3, variable = varA ).pack(side= LEFT)
+B=Checkbutton(tab1, text="B", font=("Consolas", 10), width =3, variable = varB).pack(side= LEFT)
+C=Checkbutton(tab1, text="C", font=("Consolas", 10), width =3, variable = varC).pack(side= LEFT)
+D=Checkbutton(tab1, text="D", font=("Consolas", 10), width =3, variable = varD).pack(side= LEFT)
+E=Checkbutton(tab1, text="E", font=("Consolas", 10), width =3, variable = varE).pack(side= LEFT)
+
 window.mainloop()
