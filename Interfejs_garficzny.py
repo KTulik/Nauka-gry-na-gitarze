@@ -42,7 +42,7 @@ drop = OptionMenu(tab1, clicked, *options)
 drop.pack()
 
 # Create button, it will change label text, we should add a way it impacts play sound function
-button = Button(tab1, text="click Me", command=show).pack()
+button = Button(tab1, text="Zarwierdz standard", command=show).pack()
 
 # Create Label
 label = Label(tab1, text=" ")
