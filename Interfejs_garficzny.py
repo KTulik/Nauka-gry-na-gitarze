@@ -27,7 +27,7 @@ def play_sound():
     elif varB.get()==1:
         play_note(notes_map['B2'])
     else:
-        print('zostala wywolana funkcja play_sound()')
+        print('zostala wywolana funkcja play_sound() ale zaden dzwiek nie zostal odtworzony')
 
 label = Label(tab1, text=" ")
 label.pack()
