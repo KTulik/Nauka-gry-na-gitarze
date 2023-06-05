@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 from tkinter import *
 from tkinter import ttk
+from frequency_generator import *
+from notes_map import *
 
 window = Tk()
 
@@ -64,4 +66,6 @@ C=Checkbutton(tab1, text="C", font=("Consolas", 10), width =3, variable = varC).
 D=Checkbutton(tab1, text="D", font=("Consolas", 10), width =3, variable = varD).pack(side= LEFT)
 E=Checkbutton(tab1, text="E", font=("Consolas", 10), width =3, variable = varE).pack(side= LEFT)
 
+if varA=1:
+    play_note(notes_map['E2'])
 window.mainloop()
