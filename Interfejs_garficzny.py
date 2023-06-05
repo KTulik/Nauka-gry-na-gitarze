@@ -21,6 +21,7 @@ root.pack(expand=TRUE, fill="both")
 
 def show():
     label.config(text=clicked.get(),)
+def play_sound()
 def playA():
     print("gram A")
 label = Label(tab1, text=" ")
@@ -60,12 +61,14 @@ varB = IntVar()
 varC = IntVar()
 varD = IntVar()
 varE = IntVar()
-A=Checkbutton(tab1, text="A", font=("Consolas", 10), width =3, variable = varA ).pack(side= LEFT)
-B=Checkbutton(tab1, text="B", font=("Consolas", 10), width =3, variable = varB).pack(side= LEFT)
-C=Checkbutton(tab1, text="C", font=("Consolas", 10), width =3, variable = varC).pack(side= LEFT)
-D=Checkbutton(tab1, text="D", font=("Consolas", 10), width =3, variable = varD).pack(side= LEFT)
-E=Checkbutton(tab1, text="E", font=("Consolas", 10), width =3, variable = varE).pack(side= LEFT)
+A=Checkbutton(tab1, text="A", font=("Consolas", 10), width =3, variable = varA, command = print("gram A") ).pack(side= LEFT)
+B=Checkbutton(tab1, text="B", font=("Consolas", 10), width =3, variable = varB, command = print("gram B")).pack(side= LEFT)
+C=Checkbutton(tab1, text="C", font=("Consolas", 10), width =3, variable = varC, command = print("gram C")).pack(side= LEFT)
+D=Checkbutton(tab1, text="D", font=("Consolas", 10), width =3, variable = varD, command = print("gram D")).pack(side= LEFT)
+E=Checkbutton(tab1, text="E", font=("Consolas", 10), width =3, variable = varE, command = print("gram E")).pack(side= LEFT)
+play_button = Button(tab1, text="Play", command=play_sound).pack()
 
-if varA=1:
+if varA==1:
     play_note(notes_map['E2'])
+    print("gram E2")
 window.mainloop()
