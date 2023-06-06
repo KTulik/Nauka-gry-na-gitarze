@@ -2,62 +2,62 @@ import pyaudio
 import numpy as np
 import math
 
-sample_rate = 44100  # Częstotliwość próbkowania
+sample_rate = 44100  # Frequency of samples
 
 
 def play(frequency_list, chord_duration=2.0, note_duration=0.0, direction='down', amplitude=1.0):
 
-    # sprawdzenie czy frequency_list to na pewno lista, jeżeli nie to zamienia zmienną na listę
+    # check if frequency_list is list
     if not isinstance(frequency_list, list):
         frequency_list = [frequency_list]
-    # Obliczanie liczby próbek na podstawie czasu trwania
+    # calculate number of samples
     num_samples = int(sample_rate * chord_duration)
 
-    # Tworzenie tablicy próbek dźwięku
+    # make array of sound sample
     samples = np.zeros(num_samples, dtype=np.float32)
 
-    # Generowanie próbek dźwięku dla każdej nuty akordu
+    # direction of chord
     if (direction == 'up'):
         frequency_list.reverse()
 
     for index, frequency in enumerate(frequency_list):
 
-        # Tworzenie próbek dźwięku sinusoidalnego dla danej częstotliwości
+        # make sinusoidal wave
         note_samples = np.zeros(num_samples, dtype=np.float32)
 
-        # obliczanie przeszunięcia dla danej nuty
+        # calculate delta for separate notes
         delta_t = int(note_duration * index / chord_duration * num_samples)
 
         for i in range(delta_t, num_samples):
 
-            # Obliczanie aktualnego czasu dla próbki
+            # calculate actual sample time
             t = float(i) / sample_rate
             note_samples[i] = amplitude * \
                 math.sin(2.0 * math.pi * frequency * t)
 
-        # Dodawanie próbek dla danej nuty do ogólnych próbek akordu
+        # add separate note samples 
         samples += note_samples
 
-    # Normalizacja próbek do zakresu [-1, 1]
+    # Normalize amplitude of sinusoidal wave
     samples /= np.max(np.abs(samples))
 
-    # Inicjalizacja obiektu PyAudio
+    # Initialize PyAudio object
     p = pyaudio.PyAudio()
 
-    # Otwieranie strumienia audio
+    # Open audio stream
     stream = p.open(format=pyaudio.paFloat32,
                     channels=1,
                     rate=sample_rate,
                     output=True)
 
-    # Odtwarzanie próbek dźwięku
+    # play wave
     stream.write(samples.tobytes())
 
-    # Zamykanie strumienia audio
+    # close audio stream
     stream.stop_stream()
     stream.close()
 
-    # Wyłączanie PyAudio
+    # turn off PyAudio
     p.terminate()
 
 # def check_amplitude(frequency):
