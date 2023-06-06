@@ -1,7 +1,6 @@
 import pyaudio
 import numpy as np
 import math
-import threading
 
 # Parametry symulacji dźwięku
 sample_rate = 44100  # Częstotliwość próbkowania
