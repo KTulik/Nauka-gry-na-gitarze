@@ -1,7 +1,6 @@
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
 from tkinter import *
 from tkinter import ttk
+from PIL import ImageTk, Image
 from frequency_generator import *
 from notes_map import *
 
@@ -9,72 +8,75 @@ window = Tk()
 
 root = ttk.Notebook(window)
 
-
 tab1 = Frame(root)
 tab2 = Frame(root)
-
 
 root.add(tab1, text="Stroik")
 root.add(tab2, text="Akordy")
 root.pack(expand=TRUE, fill="both")
 
+tuning_notes = ["E", "A", "D", "G", "B", "E"]
+
+def change_button_text():
+    A.config(text=tuning_notes[0])
+    B.config(text=tuning_notes[1])
+    C.config(text=tuning_notes[2])
+    D.config(text=tuning_notes[3])
+    E.config(text=tuning_notes[4])
+    F.config(text=tuning_notes[5])
 
 def show():
-    label.config(text=clicked.get(),)
-def play_sound():
-    if varA.get() ==1:
-        play_note(notes_map['E2'])
-    elif varB.get()==1:
-        play_note(notes_map['B2'])
-    else:
-        print('zostala wywolana funkcja play_sound() ale zaden dzwiek nie zostal odtworzony')
+    global tuning_notes
+    label.config(text=clicked.get())
+    tuning_notes = tunings_map[clicked.get()]
+    change_button_text()
+
+def play_sound(note):
+    play(notes_map[note])
 
 label = Label(tab1, text=" ")
-label.pack()
+label.grid(row=0, column=1)
 
-
-# Dropdown menu options
 options = [
-    "Standard1",
-    "Standard2",
-    "Standard3",
-    "Standard4",
-    "Standard5",
-    "Standard6",
-    "Standard7"
+    "Drop_B",
+    "Standard_C",
+    "Drop_C",
+    "Standard_D",
+    "Drop_D",
+    "Standard_E"
 ]
-# datatype of menu text
-clicked = StringVar()
 
-# initial menu text
+clicked = StringVar()
 clicked.set("Wybierz standard")
 
-# Create Dropdown menu
 drop = OptionMenu(tab1, clicked, *options)
-drop.pack()
+drop.grid(row=1, column=1)
+
+button = Button(tab1, text="Zatwierdź standard", command=show)
+button.grid(row=2, column=1)
+
+A = Button(tab1, text=tuning_notes[0], font=("Consolas", 10), width=3, command=lambda: play_sound((tunings_map[clicked.get()])[0]))
+B = Button(tab1, text=tuning_notes[1], font=("Consolas", 10), width=3, command=lambda: play_sound((tunings_map[clicked.get()])[1]))
+C = Button(tab1, text=tuning_notes[2], font=("Consolas", 10), width=3, command=lambda: play_sound((tunings_map[clicked.get()])[2]))
+D = Button(tab1, text=tuning_notes[3], font=("Consolas", 10), width=3, command=lambda: play_sound((tunings_map[clicked.get()])[3]))
+E = Button(tab1, text=tuning_notes[4], font=("Consolas", 10), width=3, command=lambda: play_sound((tunings_map[clicked.get()])[4]))
+F = Button(tab1, text=tuning_notes[5], font=("Consolas", 10), width=3, command=lambda: play_sound((tunings_map[clicked.get()])[5]))
+
+A.grid(row=4, column=0)
+B.grid(row=5, column=0)
+C.grid(row=6, column=0)
+D.grid(row=4, column=2)
+E.grid(row=5, column=2)
+F.grid(row=6, column=2)
+
+# Load image
+image = Image.open("image/GuitarHead.png")
+photo = ImageTk.PhotoImage(image)
+new_height = int(image.size[1] * 0.8)
+image = image.resize((image.size[0], new_height), Image.LANCZOS)
+guitar_head = Label(tab1, image=photo)
+guitar_head.grid(row=4, column=1, rowspan=6, sticky="NS")  # Ustawienie położenia w komórce (0, 0)
 
 
-# Create button, it will change label text, we should add a way it impacts play sound function
-button = Button(tab1, text="Zarwierdz standard", command=show).pack()
 
-# Create Label
-
-
-# okienka do zaznaczania z przypisanymi im zmiennymi
-varA = IntVar()
-varB = IntVar()
-varC = IntVar()
-varD = IntVar()
-varE = IntVar()
-A=Checkbutton(tab1, text="A", font=("Consolas", 10), width =3, variable = varA, command = play_sound).pack(side= LEFT)
-B=Checkbutton(tab1, text="B", font=("Consolas", 10), width =3, variable = varB, command = play_sound).pack(side= LEFT)
-C=Checkbutton(tab1, text="C", font=("Consolas", 10), width =3, variable = varC, command = play_sound).pack(side= LEFT)
-D=Checkbutton(tab1, text="D", font=("Consolas", 10), width =3, variable = varD, command = play_sound).pack(side= LEFT)
-E=Checkbutton(tab1, text="E", font=("Consolas", 10), width =3, variable = varE, command = play_sound).pack(side= LEFT)
-#play_button = Button(tab1, text="Play", command=play_sound).pack()
-
-
-#play_note(notes_map['E2'])
-window.mainloop()
-
-
+root.mainloop()
