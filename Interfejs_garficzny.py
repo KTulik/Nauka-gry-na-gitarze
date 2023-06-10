@@ -3,6 +3,7 @@ from tkinter import ttk
 from PIL import ImageTk, Image
 from frequency_generator import *
 from notes_map import *
+import os
 
 window = Tk()
 
@@ -16,6 +17,20 @@ root.add(tab2, text="Akordy")
 root.pack(expand=TRUE, fill="both")
 
 tuning_notes = ["E", "A", "D", "G", "B", "E"]
+
+# adding path of the selected folder
+folder = "image"
+
+images = {}
+
+for file_name in os.listdir(folder):
+    file_path = os.path.join(folder, file_name)
+    if os.path.isfile(file_path):
+        images[file_name] = file_path
+
+# Displaying the file dictionary
+for file_name, file_path in images.items():
+    print(f"File Name: {file_name}, File Path: {file_path}")
 
 def change_button_text():
     A.config(text=tuning_notes[0])
@@ -33,6 +48,19 @@ def show():
 
 def play_sound(note):
     play(notes_map[note])
+
+def change_image(akord):
+    global chord_image
+    global chord_photo
+    if akord in images:
+        chord_image = Image.open(images[akord])
+        chord_photo = ImageTk.PhotoImage(chord_image)
+        chord_new_height = int(chord_image.size[1] * 0.4)
+        chord_image = chord_image.resize((chord_image.size[0], chord_new_height), Image.LANCZOS)
+        Chord_label.configure(image=chord_photo)
+        chord_photo.image = chord_photo
+    else:
+        print("Brak obrazu dla wybranego akordu!")
 
 label = Label(tab1, text=" ")
 label.grid(row=0, column=1)
@@ -76,6 +104,30 @@ new_height = int(image.size[1] * 0.8)
 image = image.resize((image.size[0], new_height), Image.LANCZOS)
 guitar_head = Label(tab1, image=photo)
 guitar_head.grid(row=4, column=1, rowspan=6, sticky="NS")  # Ustawienie położenia w komórce (0, 0)
+
+chord_image = Image.open("image/A.png")
+chord_photo = ImageTk.PhotoImage(chord_image)
+chord_new_height = int(chord_image.size[1] * 0.4)
+chord_image = chord_image.resize((chord_image.size[0], chord_new_height), Image.LANCZOS)
+Chord_label = Label(tab2, image=chord_photo)
+Chord_label.grid(row=4, column=3, rowspan=6, sticky="NS")
+
+#chord buttons
+chordA = Button(tab2, text="A", font=("Consolas", 10), width=3, command=lambda: change_image("A.png"))
+chordB = Button(tab2, text="B", font=("Consolas", 10), width=3, command=lambda: change_image("B.png"))
+chordC = Button(tab2, text="C", font=("Consolas", 10), width=3, command=lambda: change_image("C.png"))
+chordD = Button(tab2, text="D", font=("Consolas", 10), width=3, command=lambda: change_image("D.png"))
+chordE = Button(tab2, text="E", font=("Consolas", 10), width=3, command=lambda: change_image("E.png"))
+chordF = Button(tab2, text="F", font=("Consolas", 10), width=3, command=lambda: change_image("F.png"))
+#buttons aragment
+chordA.grid(row=4, column=0)
+chordB.grid(row=5, column=0)
+chordC.grid(row=6, column=0)
+chordD.grid(row=4, column=2)
+chordE.grid(row=5, column=2)
+chordF.grid(row=6, column=2)
+
+
 
 
 
