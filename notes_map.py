@@ -16,11 +16,11 @@ with open('chords_notes_map.json') as file:
 #load guitar tunings dictionary from guitar_tunings.json
 with open('guitar_tunings.json') as file:
     tunings_map = json.load(file)
-    print(tunings_map)
-    #use notes_map to get tunings_map with frequencies
+# with open('guitar_tunings.json') as file:
+#     tunings_map_frequency = json.load(file)
     
-    for tuning in tunings_map:
-        for note in range(len(tunings_map[tuning])):
-            tunings_map[tuning][note] = notes_map[tunings_map[tuning][note]]
-            
-    print(tunings_map)
+#     #use notes_map to get tunings_map with frequencies
+    
+#     for tuning in tunings_map_frequency:
+#         for note in range(len(tunings_map_frequency[tuning])):
+#             tunings_map_frequency[tuning][note] = notes_map[tunings_map_frequency[tuning][note]]
