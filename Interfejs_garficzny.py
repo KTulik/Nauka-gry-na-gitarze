@@ -18,20 +18,6 @@ root.pack(expand=TRUE, fill="both")
 
 tuning_notes = ["E", "A", "D", "G", "B", "E"]
 
-# adding path of the selected folder
-folder = "image"
-
-images = {}
-
-for file_name in os.listdir(folder):
-    file_path = os.path.join(folder, file_name)
-    if os.path.isfile(file_path):
-        images[file_name] = file_path
-
-# Displaying the file dictionary
-for file_name, file_path in images.items():
-    print(f"File Name: {file_name}, File Path: {file_path}")
-
 def change_button_text():
     A.config(text=tuning_notes[0])
     B.config(text=tuning_notes[1])
@@ -48,19 +34,24 @@ def show():
 
 def play_sound(note):
     play(notes_map[note])
-
-def change_image(akord):
+    
+def show_chord():
+    
     global chord_image
     global chord_photo
-    if akord in images:
-        chord_image = Image.open(images[akord])
-        chord_photo = ImageTk.PhotoImage(chord_image)
-        chord_new_height = int(chord_image.size[1] * 0.4)
-        chord_image = chord_image.resize((chord_image.size[0], chord_new_height), Image.LANCZOS)
-        Chord_label.configure(image=chord_photo)
-        chord_photo.image = chord_photo
-    else:
-        print("Brak obrazu dla wybranego akordu!")
+    
+    chord_label.config(text=clicked_chord.get())
+    chord_image = Image.open(chord_image_map[clicked_chord.get()])
+    chord_photo = ImageTk.PhotoImage(chord_image)
+    chord_new_height = int(chord_image.size[1] * 0.4)
+    chord_image = chord_image.resize((chord_image.size[0], chord_new_height), Image.LANCZOS)
+    Chord_label = Label(tab2, image=chord_photo)
+    Chord_label.grid(row=3, column=0, rowspan=6, sticky="NS")
+    
+def play_chord():
+    play(chords_map[clicked_chord.get()], 8, 1, "down")
+        
+# Stroik
 
 label = Label(tab1, text=" ")
 label.grid(row=0, column=1)
@@ -97,38 +88,48 @@ D.grid(row=4, column=2)
 E.grid(row=5, column=2)
 F.grid(row=6, column=2)
 
-# Load image
+# # Load image
 image = Image.open("image/GuitarHead.png")
 photo = ImageTk.PhotoImage(image)
 new_height = int(image.size[1] * 0.8)
 image = image.resize((image.size[0], new_height), Image.LANCZOS)
 guitar_head = Label(tab1, image=photo)
-guitar_head.grid(row=4, column=1, rowspan=6, sticky="NS")  # Ustawienie położenia w komórce (0, 0)
+guitar_head.grid(row=4, column=1, rowspan=6, sticky="NS")
 
-chord_image = Image.open("image/A.png")
-chord_photo = ImageTk.PhotoImage(chord_image)
-chord_new_height = int(chord_image.size[1] * 0.4)
-chord_image = chord_image.resize((chord_image.size[0], chord_new_height), Image.LANCZOS)
-Chord_label = Label(tab2, image=chord_photo)
-Chord_label.grid(row=4, column=3, rowspan=6, sticky="NS")
+#akordy
 
-#chord buttons
-chordA = Button(tab2, text="A", font=("Consolas", 10), width=3, command=lambda: change_image("A.png"))
-chordB = Button(tab2, text="B", font=("Consolas", 10), width=3, command=lambda: change_image("B.png"))
-chordC = Button(tab2, text="C", font=("Consolas", 10), width=3, command=lambda: change_image("C.png"))
-chordD = Button(tab2, text="D", font=("Consolas", 10), width=3, command=lambda: change_image("D.png"))
-chordE = Button(tab2, text="E", font=("Consolas", 10), width=3, command=lambda: change_image("E.png"))
-chordF = Button(tab2, text="F", font=("Consolas", 10), width=3, command=lambda: change_image("F.png"))
-#buttons aragment
-chordA.grid(row=4, column=0)
-chordB.grid(row=5, column=0)
-chordC.grid(row=6, column=0)
-chordD.grid(row=4, column=2)
-chordE.grid(row=5, column=2)
-chordF.grid(row=6, column=2)
+chord_label = Label(tab2, text = " ")
+chord_label.grid(row = 0 , column = 0)
 
+chord_options = [
+    "A",
+    "Am",
+    "B",
+    "B7",
+    "Bm",
+    "C",
+    "C7",
+    "D",
+    "Dm",
+    "E",
+    "Em",
+    "F",
+    "Fm",
+    "F#m",
+    "G",
+    "G7"
+]
 
+clicked_chord = StringVar()
+clicked_chord.set("Wybierz akord")
 
+chord_drop = OptionMenu(tab2, clicked_chord, *chord_options)
+chord_drop.grid(row = 1, column = 0)
 
+chord_button = Button(tab2, text="Zatwierdź akord", command = show_chord)
+chord_button.grid(row = 2, column = 0)
+
+chord_play_button = Button(tab2, text = "Zagraj akord", command = play_chord)
+chord_play_button.grid(row = 10, column = 0)
 
 root.mainloop()
