@@ -48,10 +48,14 @@ def show():
 
 def play_sound(note):
     play(notes_map[note])
+#def play_chord(index):
+    #play(chords_map[chord_options[index]])
+
 
 def change_image(akord):
     global chord_image
     global chord_photo
+    #global chord_index
     if akord in images:
         chord_image = Image.open(images[akord])
         chord_photo = ImageTk.PhotoImage(chord_image)
@@ -72,6 +76,24 @@ options = [
     "Standard_D",
     "Drop_D",
     "Standard_E"
+]
+chord_options = [
+    "A",
+    "Am",
+    "B",
+    "B7",
+    "Bm",
+    "C",
+    "C7",
+    "D",
+    "Dm",
+    "E",
+    "Em",
+    "F",
+    "Fm",
+    "F#m",
+    "G",
+    "G7"
 ]
 
 clicked = StringVar()
@@ -105,30 +127,36 @@ image = image.resize((image.size[0], new_height), Image.LANCZOS)
 guitar_head = Label(tab1, image=photo)
 guitar_head.grid(row=4, column=1, rowspan=6, sticky="NS")  # Ustawienie położenia w komórce (0, 0)
 
+#load basic chord image
 chord_image = Image.open("image/A.png")
 chord_photo = ImageTk.PhotoImage(chord_image)
 chord_new_height = int(chord_image.size[1] * 0.4)
 chord_image = chord_image.resize((chord_image.size[0], chord_new_height), Image.LANCZOS)
 Chord_label = Label(tab2, image=chord_photo)
-Chord_label.grid(row=4, column=3, rowspan=6, sticky="NS")
+Chord_label.grid(row=1, column=3, rowspan=8, sticky="NS")
+#index variable
+#chord_index=0
 
 #chord buttons
-chordA = Button(tab2, text="A", font=("Consolas", 10), width=3, command=lambda: change_image("A.png"))
-chordAm = Button(tab2, text="Am", font=("Consolas", 10), width=3, command=lambda: change_image("Am.png"))
-chordB = Button(tab2, text="B", font=("Consolas", 10), width=3, command=lambda: change_image("B.png"))
-chordB7 = Button(tab2, text="B7", font=("Consolas", 10), width=3, command=lambda: change_image("B7.png"))
-chordBm = Button(tab2, text="Bm", font=("Consolas", 10), width=3, command=lambda: change_image("Bm.png"))
-chordC = Button(tab2, text="C", font=("Consolas", 10), width=3, command=lambda: change_image("C.png"))
-chordC7 = Button(tab2, text="C7", font=("Consolas", 10), width=3, command=lambda: change_image("C7.png"))
-chordD = Button(tab2, text="D", font=("Consolas", 10), width=3, command=lambda: change_image("D.png"))
-chordDm = Button(tab2, text="Dm", font=("Consolas", 10), width=3, command=lambda: change_image("Dm.png"))
-chordE = Button(tab2, text="E", font=("Consolas", 10), width=3, command=lambda: change_image("E.png"))
-chordEm = Button(tab2, text="Em", font=("Consolas", 10), width=3, command=lambda: change_image("Em.png"))
-chordFhash = Button(tab2, text="F#m", font=("Consolas", 10), width=3, command=lambda: change_image("F#m.png"))
-chordF = Button(tab2, text="F", font=("Consolas", 10), width=3, command=lambda: change_image("F.png"))
-chordFm = Button(tab2, text="Fm", font=("Consolas", 10), width=3, command=lambda: change_image("Fm.png"))
-chordG = Button(tab2, text="G", font=("Consolas", 10), width=3, command=lambda: change_image("G.png"))
-chordG7 = Button(tab2, text="G7", font=("Consolas", 10), width=3, command=lambda: change_image("G7.png"))
+chordA = Button(tab2, text=chord_options[0], font=("Consolas", 10), width=3, command=lambda: change_image(chord_options[0]+".png"))
+chordAm = Button(tab2, text=chord_options[1], font=("Consolas", 10), width=3, command=lambda: change_image(chord_options[1]+".png"))
+chordB = Button(tab2, text=chord_options[2], font=("Consolas", 10), width=3, command=lambda: change_image(chord_options[2]+".png"))
+chordB7 = Button(tab2, text=chord_options[3], font=("Consolas", 10), width=3, command=lambda: change_image(chord_options[3]+".png"))
+chordBm = Button(tab2, text=chord_options[4], font=("Consolas", 10), width=3, command=lambda: change_image(chord_options[4]+".png"))
+chordC = Button(tab2, text=chord_options[5], font=("Consolas", 10), width=3, command=lambda: change_image(chord_options[5]+".png"))
+chordC7 = Button(tab2, text=chord_options[6], font=("Consolas", 10), width=3, command=lambda: change_image(chord_options[6]+".png"))
+chordD = Button(tab2, text=chord_options[7], font=("Consolas", 10), width=3, command=lambda: change_image(chord_options[7]+".png"))
+chordDm = Button(tab2, text=chord_options[8], font=("Consolas", 10), width=3, command=lambda: change_image(chord_options[8]+".png"))
+chordE = Button(tab2, text=chord_options[9], font=("Consolas", 10), width=3, command=lambda: change_image(chord_options[9]+".png"))
+chordEm = Button(tab2, text=chord_options[10], font=("Consolas", 10), width=3, command=lambda: change_image(chord_options[10]+".png"))
+chordFhash = Button(tab2, text=chord_options[11], font=("Consolas", 10), width=3, command=lambda: change_image(chord_options[11]+".png"))
+chordF = Button(tab2, text=chord_options[12], font=("Consolas", 10), width=3, command=lambda: change_image(chord_options[12]+".png"))
+chordFm = Button(tab2, text=chord_options[13], font=("Consolas", 10), width=3, command=lambda: change_image(chord_options[13]+".png"))
+chordG = Button(tab2, text=chord_options[14], font=("Consolas", 10), width=3, command=lambda: change_image(chord_options[14]+".png"))
+chordG7 = Button(tab2, text=chord_options[15], font=("Consolas", 10), width=3, command=lambda: change_image(chord_options[15]+".png"))
+#play_chord button
+#play_chord_button = Button(tab2, text="Play", font=("Consolas", 10),command =lambda:play_chord(chord_index))
+
 #buttons arragment
 chordA.grid(row=1, column=0)
 chordAm.grid(row=1, column=1)
@@ -146,6 +174,7 @@ chordF.grid(row=6, column=1)
 chordFm.grid(row=6, column=2)
 chordG.grid(row=7, column=0)
 chordG7.grid(row=7, column=1)
+#play_chord_button.grid(row=9,column=3)
 
 
 
