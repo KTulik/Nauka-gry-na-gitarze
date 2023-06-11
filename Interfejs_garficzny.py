@@ -81,9 +81,9 @@ D = Button(tab1, text=tuning_notes[3], font=("Consolas", 10), width=3, command=l
 E = Button(tab1, text=tuning_notes[4], font=("Consolas", 10), width=3, command=lambda: play_sound((tunings_map[clicked.get()])[4]))
 F = Button(tab1, text=tuning_notes[5], font=("Consolas", 10), width=3, command=lambda: play_sound((tunings_map[clicked.get()])[5]))
 
-A.grid(row=4, column=0)
+A.grid(row=6, column=0)
 B.grid(row=5, column=0)
-C.grid(row=6, column=0)
+C.grid(row=4, column=0)
 D.grid(row=4, column=2)
 E.grid(row=5, column=2)
 F.grid(row=6, column=2)
