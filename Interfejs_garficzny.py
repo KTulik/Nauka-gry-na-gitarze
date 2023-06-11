@@ -3,7 +3,7 @@ from tkinter import ttk
 from PIL import ImageTk, Image
 from frequency_generator import *
 from notes_map import *
-import os
+
 
 window = Tk()
 
@@ -40,13 +40,13 @@ def show_chord():
     global chord_image
     global chord_photo
     
-    chord_label.config(text=clicked_chord.get())
+    choose_chord_label.config(text=clicked_chord.get())
     chord_image = Image.open(chord_image_map[clicked_chord.get()])
     chord_photo = ImageTk.PhotoImage(chord_image)
     chord_new_height = int(chord_image.size[1] * 0.4)
     chord_image = chord_image.resize((chord_image.size[0], chord_new_height), Image.LANCZOS)
-    Chord_label = Label(tab2, image=chord_photo)
-    Chord_label.grid(row=3, column=0, rowspan=6, sticky="NS")
+    chord_label = Label(tab2, image=chord_photo)
+    chord_label.grid(row=3, column=0, rowspan=6, sticky="NS")
     
 def play_chord():
     play(chords_map[clicked_chord.get()], 8, 1, "down")
@@ -98,8 +98,8 @@ guitar_head.grid(row=4, column=1, rowspan=6, sticky="NS")
 
 #akordy
 
-chord_label = Label(tab2, text = " ")
-chord_label.grid(row = 0 , column = 0)
+choose_chord_label = Label(tab2, text =" ")
+choose_chord_label.grid(row = 0, column = 0)
 
 chord_options = [
     "A",
